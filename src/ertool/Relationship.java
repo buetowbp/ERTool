@@ -48,7 +48,7 @@ public class Relationship extends DraggableObject implements MouseListener{
         ERToolView.currentFocus=mLink;
         ERToolView.PropertyField.setText(text);
         ERToolView.relationships.add(this);
-        ERToolView.addObject(this);
+       // ERToolView.addObject(this);
          final DraggableObject thisObject = this;
         MouseListener ml = new MouseListener(){
 			@Override

@@ -44,10 +44,11 @@ public class Entity extends DraggableObject implements MouseListener{
         setSize(100,50);
          this.text=text;
          this.isWeak=isWeak;
+         this.moveToFront();
         ERToolView.currentFocus=mLink;
         ERToolView.PropertyField.setText(text);
         System.out.println(ERToolView.objects.toString()+"OC");
-        ERToolView.addObject(this);///IT IS HAPPENING HERE <----------------------------------
+        //ERToolView.addObject(this);///IT IS HAPPENING HERE <----------------------------------
        System.out.println(ERToolView.objects.toString()+"OC");
        
         final DraggableObject thisObject = this;

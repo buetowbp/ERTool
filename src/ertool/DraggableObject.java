@@ -61,7 +61,7 @@ public class DraggableObject{
     public void moveToFront(){
         ArrayList<DraggableObject> temp = new ArrayList<DraggableObject>();
         for (DraggableObject d: ERToolView.objects){
-            if (this.equals(d)) continue;
+            if (this.toString().equals(d.toString())) continue;
             else temp.add(d);
         }
         temp.add(this);

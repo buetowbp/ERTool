@@ -48,7 +48,7 @@ public class Attribute extends DraggableObject implements MouseListener{
         setSize(100,50);
         ERToolView.currentFocus=mLink;
         ERToolView.PropertyField.setText(text);
-        ERToolView.addObject(this);
+        //ERToolView.addObject(this);
         final DraggableObject thisObject = this;
         parent.addMouseListener(new MouseListener(){
 			@Override
