@@ -244,5 +244,20 @@ public class Relationship extends DraggableObject implements MouseListener{
             
             
         }
+         
+         public void edit(){
+         	RelationShipDialog rd = new RelationShipDialog(this);
+         	
+             //ed.positionCenter();
+             rd.setVisible(true);
+             
+         }
+         
+         public void removeEntities(){
+        	 this.firstEntity.relationships.remove(this);
+        	 this.secondEntity.relationships.remove(this);
+        	 this.firstEntity=null;
+        	 this.secondEntity=null;
+         }
 }
 

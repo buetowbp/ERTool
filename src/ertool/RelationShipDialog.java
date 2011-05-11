@@ -23,6 +23,7 @@ import org.jdesktop.application.Action;
  * @author Kyle
  */
 public class RelationShipDialog extends javax.swing.JFrame {
+	private Relationship relationship;
 
     /** Creates new form RelationShipDialog */
     public RelationShipDialog() {
@@ -50,6 +51,40 @@ public class RelationShipDialog extends javax.swing.JFrame {
                }
             }
         });
+    }
+    
+    public RelationShipDialog(Relationship r) {
+        initComponents();
+        this.relationship = r;
+        this.setTitle("Edit Relationship");
+        for (Entity e: ERToolView.entities){
+            EntityChoice1.add(e.getText());
+        }
+        this.RelationshipNameField.setText(this.relationship.getText());
+        this.EntityChoice1.select(this.relationship.firstEntity.getText());
+        
+        for (Entity e: ERToolView.entities){
+                   if (!EntityChoice1.getSelectedItem().equals(e.getText())){
+                       EntityChoice2.add(e.getText());
+                   }
+               }
+        this.EntityChoice2.select(this.relationship.secondEntity.getText());
+        
+        EntityChoice1.addItemListener(new ItemListener() {
+
+            ///when a different first entity is selected, make sure that it can't also be selected as the second entity
+            
+            public void itemStateChanged(ItemEvent arg0) {
+               EntityChoice2.removeAll();
+               for (Entity e: ERToolView.entities){
+                   if (!EntityChoice1.getSelectedItem().equals(e.getText())){
+                       EntityChoice2.add(e.getText());
+                   }
+               }
+            }
+        });
+        
+        
     }
 
     /** This method is called from within the constructor to
@@ -181,9 +216,11 @@ public class RelationShipDialog extends javax.swing.JFrame {
 
     @Action
     public void createNewRelationship() {
+    	if (this.relationship ==null){
          if (isValidInput(RelationshipNameField.getText())){
             ERToolView.createRelationship(RelationshipNameField.getText(),(Entity) ERToolView.findElementByName(EntityChoice1.getSelectedItem()),(Entity)  ERToolView.findElementByName(EntityChoice2.getSelectedItem()));
             this.setVisible(false);
+            this.dispose();
         }
         else{
             
@@ -191,6 +228,30 @@ public class RelationShipDialog extends javax.swing.JFrame {
            
            
         }
+    	}
+    	else{
+    		if (isValidInput(RelationshipNameField.getText())){
+    			this.relationship.removeEntities();
+    			
+    			this.relationship.mLink.setFirstOwner((Entity) ERToolView.findElementByName(EntityChoice1.getSelectedItem()));
+    			this.relationship.mLink.setSecondOwner((Entity) ERToolView.findElementByName(EntityChoice2.getSelectedItem()));
+    			this.relationship.mLink.setName(RelationshipNameField.getText());
+    			
+    			ERToolView.currentFocus.updateToLink();
+    			
+    			this.relationship.firstEntity.relationships.add(this.relationship);
+    			this.relationship.secondEntity.relationships.add(this.relationship);
+    			
+    			ERToolView.currentFocus.updateToLink();
+                
+                this.setVisible(false);
+                this.dispose();
+            }
+            else{
+                
+                JOptionPane.showMessageDialog(rootPane, "Relationship name cannot be blank. Please try again.");
+    	}
+    	}
         
         
         

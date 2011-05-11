@@ -105,5 +105,10 @@ public class DraggableObject{
      public void delete(){
          //should be implemented and overridden in each type (Entity, Attribute, Relationship)
      }
+
+	public void edit() {
+		// should be implemented and overridden in each type (Entity, Attribute, Relationship)
+		
+	}
    
 }

@@ -19,10 +19,16 @@ public class ObjectEditMenu extends JPopupMenu {
     public ObjectEditMenu(MouseEvent e)
     {
         ActionListener actionListener = new PopupActionListener();
-        
+        JMenuItem editItem=new JMenuItem("Edit...");
+        editItem.addActionListener(actionListener);
         JMenuItem deleteItem = new JMenuItem("Delete");
         deleteItem.addActionListener(actionListener);
+        
+        
+        
+        this.add(editItem);
         this.add(deleteItem);
+        
         this.show(e.getComponent(),e.getX(),e.getY());
     }
     
@@ -32,6 +38,9 @@ class PopupActionListener implements ActionListener {
   public void actionPerformed(ActionEvent actionEvent) {
    if (actionEvent.getActionCommand().equals("Delete")){
        ERToolView.deleteCurrentFocus();
+   }
+   else if (actionEvent.getActionCommand().equals("Edit...")){
+	   ERToolView.editCurrentFocus();
    }
   
 }

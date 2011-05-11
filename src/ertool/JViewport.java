@@ -34,5 +34,6 @@ public class JViewport extends JPanel{
 	
 	public void clearGraphics() {
 		graphicsList.clear();
+		this.repaint();
 	}
 }

@@ -94,9 +94,9 @@ public class ERToolView extends FrameView {
     @Action
     public void showAboutBox() {
         if (aboutBox == null) {
-            JFrame mainFrame = ERToolApp.getApplication().getMainFrame();
-            aboutBox = new ERToolAboutBox(mainFrame);
-            aboutBox.setLocationRelativeTo(mainFrame);
+            JFrame main = ERToolApp.getApplication().getMainFrame();
+            aboutBox = new ERToolAboutBox(main);
+            aboutBox.setLocationRelativeTo(main);
         }
         ERToolApp.getApplication().show(aboutBox);
     }
@@ -111,8 +111,8 @@ public class ERToolView extends FrameView {
     
     @Action
     public void save(){
-        //store.save("test.ers", ERToolView.SAVE_SCRIPT);
-    	store.save("test.sql", ERToolView.SAVE_SQL);
+        store.save("test.ers", ERToolView.SAVE_SCRIPT);
+    	//store.save("test.sql", ERToolView.SAVE_SQL);
     }
     
     @Action
@@ -128,8 +128,20 @@ public class ERToolView extends FrameView {
     
     public void clear() {
     	store.clear();
-    	entities.clear();
+    	for (Entity e: entities)
+    	{
+    	e.removeMouseListener();	
+    	}
+    entities.clear();
+    	for (Relationship r: relationships)
+    	{
+    	r.removeMouseListener();	
+    	}
     	relationships.clear();
+    	for (DraggableObject o: objects){
+    		o.removeMouseListener();
+    	}
+    	objects.clear();
     	((JViewport) Viewport).clearGraphics();
     }
     
@@ -347,7 +359,11 @@ public class ERToolView extends FrameView {
 
     private void PropertyFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PropertyFieldKeyPressed
         if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
-           
+        	if (!(ERToolView.findElementByName(PropertyField.getText())==null) && !this.currentFocus.getLink().getText().equals(PropertyField.getText())){
+				JOptionPane.showMessageDialog(getRootPane(),
+				"Entity name cannot be the same as an already existing element. Please try again.");
+				return;
+        	}
             this.currentFocus.getLink().setText(PropertyField.getText());
             this.currentFocus.updateFromLink();
             this.currentFocus=null;
@@ -482,6 +498,11 @@ public class ERToolView extends FrameView {
     
 
     private JDialog aboutBox;
+
+	public static void editCurrentFocus() {
+		currentFocus.getLink().edit();
+		
+	}
     
     
 }

@@ -13,4 +13,7 @@ import java.awt.Color;
 public class Constants {
     
     public static final Color[] colors = {Color.CYAN,Color.RED,Color.BLUE,Color.GREEN,Color.ORANGE,Color.PINK};
+    
+    public static final int CREATE_ENTITY = 506767;
+    public static final int ENTITY_EDIT = 2342;
 }

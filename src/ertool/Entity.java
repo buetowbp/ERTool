@@ -22,7 +22,7 @@ import javax.swing.*;
 public class Entity extends DraggableObject implements MouseListener{
 	private int width=0;
 	private int height=0;
-	private ERScriptEntity mLink;
+	public ERScriptEntity mLink;
 	private MouseMotionListener moveListener;
         private String text;
         private Color color;
@@ -236,7 +236,7 @@ public class Entity extends DraggableObject implements MouseListener{
         
         public void setText(String s){
             this.text=s;
-            parent.repaint();
+            this.parent.repaint();
         }
         
         public String getText(){
@@ -277,7 +277,7 @@ public class Entity extends DraggableObject implements MouseListener{
             	rel.add(this.relationships.get(j));
             }
             for (Attribute a: att){
-                
+             
                 a.delete();
                 ERToolView.store.removeAttribute(a.mLink);
                 this.parent.setDraggables(ERToolView.objects);
@@ -290,6 +290,14 @@ public class Entity extends DraggableObject implements MouseListener{
                 this.parent.setDraggables(ERToolView.objects);
                 this.parent.repaint();
             }
+            
+        }
+        
+        public void edit(){
+        	EntityDialog ed = new EntityDialog(this);
+        	
+            //ed.positionCenter();
+            ed.setVisible(true);
             
         }
         

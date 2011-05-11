@@ -239,4 +239,12 @@ public class Attribute extends DraggableObject implements MouseListener{
         
             
         }
+        
+        public void edit(){
+        	AttributeDialog ad = new AttributeDialog(this);
+        	
+            //ed.positionCenter();
+            ad.setVisible(true);
+            
+        }
 }
