@@ -10,7 +10,7 @@ public class JViewport extends JPanel{
 	
 	public JViewport(){
 		super();
-		graphicsList = new ArrayList<DraggableObject>(5);
+		graphicsList = new ArrayList<DraggableObject>();
 	}
 
 	@Override
@@ -26,5 +26,13 @@ public class JViewport extends JPanel{
 	
 	public void addDraggable(DraggableObject obj){
 		graphicsList.add(obj);
+                
+	}
+        public void setDraggables(ArrayList<DraggableObject> ad){
+            graphicsList=ad;
+        }
+	
+	public void clearGraphics() {
+		graphicsList.clear();
 	}
 }
