@@ -44,13 +44,14 @@ public class Attribute extends DraggableObject implements MouseListener{
         
         this.parent = parent;
         this.parent.addDraggable(this);
+        this.moveToFront();
         setLocation(10,10);
         setSize(100,50);
         ERToolView.currentFocus=mLink;
         ERToolView.PropertyField.setText(text);
         //ERToolView.addObject(this);
         final DraggableObject thisObject = this;
-        parent.addMouseListener(new MouseListener(){
+        MouseListener ml = (new MouseListener(){
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 			}
@@ -65,6 +66,7 @@ public class Attribute extends DraggableObject implements MouseListener{
 
 			@Override
 			public void mousePressed(MouseEvent e) {
+				 if (e.getButton()==e.BUTTON1){
 				if(isPicked(e)) {
                                 
                                     if (thisObject.conflictsWithOther(e)){
@@ -77,6 +79,22 @@ public class Attribute extends DraggableObject implements MouseListener{
                                         dragMe();
                                     }
 				}
+				 }
+				 else if (e.getButton() == e.BUTTON3){
+                     if (isPicked(e)){
+                             if (thisObject.conflictsWithOther(e)){
+                                 if (thisObject.isFrontMost(thisObject.getConflicts(e))) {
+                                     ERToolView.currentFocus = mLink;
+                                     ObjectEditMenu menu = new ObjectEditMenu(e);
+                                 }
+                     }
+                             else{
+                                  ERToolView.currentFocus = mLink;
+                                  ObjectEditMenu menu = new ObjectEditMenu(e);
+                             }
+                         
+                     }
+                 }
 			}
 
 			@Override
@@ -84,6 +102,8 @@ public class Attribute extends DraggableObject implements MouseListener{
 				dontDragMe();
 			}
         });
+        parent.addMouseListener(ml);
+        this.mouseListener = ml;
     }
     
     public void setLocation(int x, int y){
@@ -190,5 +210,33 @@ public class Attribute extends DraggableObject implements MouseListener{
         
         public String getText(){
             return this.text;
+        }
+        
+        @Override
+        public void delete(){
+        	
+        	this.belongsTo.attributes.remove(this);
+        	
+        	System.out.println(ERToolView.objects.toString());
+            ERToolView.objects.remove(this);
+            System.out.println(ERToolView.objects.toString());
+            
+            this.parent.setDraggables(ERToolView.objects);
+            this.parent.repaint();
+            
+            this.removeMouseListener();
+            ERToolView.currentFocus=null;
+            ERToolView.PropertyField.setText("");
+            
+            ERToolView.store.removeAttribute(this.mLink);
+            
+            
+        
+                
+               
+               
+               
+        
+            
         }
 }

@@ -47,9 +47,9 @@ public class Entity extends DraggableObject implements MouseListener{
          this.moveToFront();
         ERToolView.currentFocus=mLink;
         ERToolView.PropertyField.setText(text);
-        System.out.println(ERToolView.objects.toString()+"OC");
+        //System.out.println(ERToolView.objects.toString()+"OC");
         //ERToolView.addObject(this);///IT IS HAPPENING HERE <----------------------------------
-       System.out.println(ERToolView.objects.toString()+"OC");
+       //System.out.println(ERToolView.objects.toString()+"OC");
        
         final DraggableObject thisObject = this;
         ERToolView.entities.add(this);
@@ -251,9 +251,9 @@ public class Entity extends DraggableObject implements MouseListener{
         public void delete(){
             ERToolView.entities.remove(this);
             
-            System.out.println(ERToolView.objects.toString()+"OR");
+          //  System.out.println(ERToolView.objects.toString()+"OR");
             ERToolView.objects.remove(this);
-            System.out.println(ERToolView.objects.toString()+"OR");
+          //  System.out.println(ERToolView.objects.toString()+"OR");
             
             this.parent.setDraggables(ERToolView.objects);
             this.parent.repaint();
@@ -262,20 +262,34 @@ public class Entity extends DraggableObject implements MouseListener{
             ERToolView.currentFocus=null;
             ERToolView.PropertyField.setText("");
             
-            //ERToolView.store.removeEntity(mLink);
-            /*
-            for (Attribute a: this.attributes){
+            ERToolView.store.removeEntity(mLink);
+            
+            ArrayList<Attribute> att = new ArrayList<Attribute>();
+            
+            for (int i =0; i <this.attributes.size(); i++){
+            	att.add(this.attributes.get(i));
+            }
+            
+   
+            ArrayList<Relationship> rel = new ArrayList<Relationship>();
+            
+            for (int j =0; j <this.relationships.size(); j++){
+            	rel.add(this.relationships.get(j));
+            }
+            for (Attribute a: att){
                 
                 a.delete();
+                ERToolView.store.removeAttribute(a.mLink);
                 this.parent.setDraggables(ERToolView.objects);
                 this.parent.repaint();
             }
-            for (Relationship r: this.relationships){
+            for (Relationship r: rel){
                
                 r.delete();
+                ERToolView.store.removeRelationship(r.mLink);
                 this.parent.setDraggables(ERToolView.objects);
                 this.parent.repaint();
-            }*/
+            }
             
         }
         

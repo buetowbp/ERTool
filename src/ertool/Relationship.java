@@ -25,7 +25,7 @@ import javax.swing.*;
 public class Relationship extends DraggableObject implements MouseListener{
 	private int width=0;
 	private int height=0;
-	private ERScriptRelationship mLink;
+	public ERScriptRelationship mLink;
 	private MouseMotionListener moveListener;
         private String text;
         public Entity firstEntity;
@@ -48,6 +48,7 @@ public class Relationship extends DraggableObject implements MouseListener{
         ERToolView.currentFocus=mLink;
         ERToolView.PropertyField.setText(text);
         ERToolView.relationships.add(this);
+        this.moveToFront();
        // ERToolView.addObject(this);
          final DraggableObject thisObject = this;
         MouseListener ml = new MouseListener(){
@@ -223,14 +224,15 @@ public class Relationship extends DraggableObject implements MouseListener{
          @Override
         public void delete(){
             ERToolView.relationships.remove(this);
-            
-            ERToolView.objects.remove(this);
-             this.parent.setDraggables(ERToolView.objects);
-            
             this.firstEntity.relationships.remove(this);
             
             
             this.secondEntity.relationships.remove(this);
+            ERToolView.store.removeRelationship(this.mLink);
+            ERToolView.objects.remove(this);
+             this.parent.setDraggables(ERToolView.objects);
+            
+           
             
            
             this.parent.repaint();
