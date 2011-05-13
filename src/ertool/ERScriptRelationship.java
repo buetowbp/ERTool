@@ -8,6 +8,8 @@ public class ERScriptRelationship extends ERScript {
 	private String name;
 	private Entity firstOwner;
 	private Entity secondOwner;
+	private AttributeType firstConstraint;
+	private AttributeType secondConstraint;
 	
 	public ERScriptRelationship(JViewport container) {
 		super(container);
@@ -15,6 +17,8 @@ public class ERScriptRelationship extends ERScript {
 		name = "";
 		firstOwner = null;
 		secondOwner = null;
+		firstConstraint = new AttributeType(ERStore.rOne);
+		secondConstraint = new AttributeType(ERStore.rOne);
 	}
 	
 	public ERScriptRelationship(JViewport container, Relationship link) {
@@ -113,5 +117,21 @@ public class ERScriptRelationship extends ERScript {
 	
 	public Entity getSecondOwner() {
 		return secondOwner;
+	}
+	
+	public void setFirstConstraint(String constraint) {
+		firstConstraint = new AttributeType(constraint);
+	}
+	
+	public AttributeType getFirstConstraint() {
+		return firstConstraint;
+	}
+	
+	public void setSecondConstraint(String constraint) {
+		secondConstraint = new AttributeType(constraint);
+	}
+	
+	public AttributeType getSecondConstraint() {
+		return secondConstraint;
 	}
 }

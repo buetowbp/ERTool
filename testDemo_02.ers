@@ -1,0 +1,8 @@
+ENTITY School
+ENTITY Student
+ENTITY Class
+ENTITY Department
+
+School.name = Rose-Hulman
+
+tuition IS ATTRIBUTE OF Rose-Hulman

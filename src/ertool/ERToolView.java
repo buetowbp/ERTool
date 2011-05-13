@@ -110,9 +110,13 @@ public class ERToolView extends FrameView {
     }
     
     @Action
+    public void generate() {
+    	store.save("test.sql", ERToolView.SAVE_SQL);
+    }
+    
+    @Action
     public void save(){
         store.save("test.ers", ERToolView.SAVE_SCRIPT);
-    	//store.save("test.sql", ERToolView.SAVE_SQL);
     }
     
     @Action
@@ -202,6 +206,7 @@ public class ERToolView extends FrameView {
         javax.swing.JMenuItem exitMenuItem = new javax.swing.JMenuItem();
         javax.swing.JMenuItem saveMenuItem = new javax.swing.JMenuItem();
         javax.swing.JMenuItem loadMenuItem = new javax.swing.JMenuItem();
+        javax.swing.JMenuItem generateMenuItem = new javax.swing.JMenuItem();
         javax.swing.JMenuItem newMenuItem = new javax.swing.JMenuItem();
         javax.swing.JMenu helpMenu = new javax.swing.JMenu();
         javax.swing.JMenuItem aboutMenuItem = new javax.swing.JMenuItem();
@@ -298,6 +303,8 @@ public class ERToolView extends FrameView {
 
         newMenuItem.setAction(actionMap.get("newER"));
         newMenuItem.setName("newMenuItem");
+        generateMenuItem.setAction(actionMap.get("generate"));
+        generateMenuItem.setName("generateMenuItem");
         saveMenuItem.setAction(actionMap.get("save"));
         saveMenuItem.setName("saveMenutItem");
         loadMenuItem.setAction(actionMap.get("load"));
@@ -305,6 +312,7 @@ public class ERToolView extends FrameView {
         exitMenuItem.setAction(actionMap.get("quit")); // NOI18N
         exitMenuItem.setName("exitMenuItem"); // NOI18N
         fileMenu.add(newMenuItem);
+        fileMenu.add(generateMenuItem);
         fileMenu.add(saveMenuItem);
         fileMenu.add(loadMenuItem);
         fileMenu.add(exitMenuItem);
@@ -418,11 +426,13 @@ public class ERToolView extends FrameView {
         
     }
     
-    public static void createRelationship(String text, Entity e1, Entity e2){
+    public static void createRelationship(String text, Entity e1, Entity e2, String c1, String c2){
     	ERScriptRelationship relationshipModel = new ERScriptRelationship((JViewport)Viewport);
     	relationshipModel.setName(text);
     	relationshipModel.setFirstOwner(e1);
     	relationshipModel.setSecondOwner(e2);
+    	relationshipModel.setFirstConstraint(c1);
+    	relationshipModel.setSecondConstraint(c2);
     	Relationship relationship = store.addRelationship(relationshipModel);
     }
     

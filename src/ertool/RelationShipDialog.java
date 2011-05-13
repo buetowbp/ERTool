@@ -51,6 +51,8 @@ public class RelationShipDialog extends javax.swing.JFrame {
                }
             }
         });
+        
+        initializeConstraints();
     }
     
     public RelationShipDialog(Relationship r) {
@@ -84,7 +86,21 @@ public class RelationShipDialog extends javax.swing.JFrame {
             }
         });
         
+        initializeConstraints();
+        EntityConstraintChoice1.select(this.relationship.mLink.getFirstConstraint().getName());
+        EntityConstraintChoice2.select(this.relationship.mLink.getSecondConstraint().getName());
+    }
+    
+    public void initializeConstraints() {
+    	EntityConstraintChoice1.add(ERStore.rOne);
+        EntityConstraintChoice1.add(ERStore.rZeroToOne);
+        EntityConstraintChoice1.add(ERStore.rZeroToMany);
+        EntityConstraintChoice1.add(ERStore.rOneToMany);
         
+        EntityConstraintChoice2.add(ERStore.rOne);
+        EntityConstraintChoice2.add(ERStore.rZeroToOne);
+        EntityConstraintChoice2.add(ERStore.rZeroToMany);
+        EntityConstraintChoice2.add(ERStore.rOneToMany);
     }
 
     /** This method is called from within the constructor to
@@ -99,11 +115,15 @@ public class RelationShipDialog extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
         RelationshipNameField = new javax.swing.JTextField();
         EntityChoice1 = new java.awt.Choice();
         EntityChoice2 = new java.awt.Choice();
         OKButton = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        EntityConstraintChoice1 = new java.awt.Choice();
+        EntityConstraintChoice2 = new java.awt.Choice();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setName("Form"); // NOI18N
@@ -120,6 +140,16 @@ public class RelationShipDialog extends javax.swing.JFrame {
         jLabel3.setFont(resourceMap.getFont("jLabel3.font")); // NOI18N
         jLabel3.setText(resourceMap.getString("jLabel3.text")); // NOI18N
         jLabel3.setName("jLabel3"); // NOI18N
+
+        jLabel4.setFont(resourceMap.getFont("jLabel4.font")); // NOI18N
+        jLabel4.setLabelFor(EntityConstraintChoice1);
+        jLabel4.setText(resourceMap.getString("jLabel4.text")); // NOI18N
+        jLabel4.setName("jLabel4"); // NOI18N
+
+        jLabel5.setFont(resourceMap.getFont("jLabel5.font")); // NOI18N
+        jLabel5.setLabelFor(EntityConstraintChoice2);
+        jLabel5.setText(resourceMap.getString("jLabel5.text")); // NOI18N
+        jLabel5.setName("jLabel5"); // NOI18N
 
         RelationshipNameField.setText(resourceMap.getString("RelationshipNameField.text")); // NOI18N
         RelationshipNameField.setName("RelationshipNameField"); // NOI18N
@@ -142,28 +172,43 @@ public class RelationShipDialog extends javax.swing.JFrame {
         jButton2.setText(resourceMap.getString("jButton2.text")); // NOI18N
         jButton2.setName("jButton2"); // NOI18N
 
+        EntityConstraintChoice1.setName("EntityConstraintChoice1"); // NOI18N
+
+        EntityConstraintChoice2.setName("EntityConstraintChoice2"); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(RelationshipNameField))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(EntityChoice1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(EntityChoice2, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)))
+                            .addComponent(OKButton, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(RelationshipNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(EntityChoice2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(EntityChoice1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
-                                .addComponent(jButton2))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(81, 81, 81)
-                        .addComponent(OKButton, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(EntityConstraintChoice1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(EntityConstraintChoice2, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jButton2))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -174,15 +219,17 @@ public class RelationShipDialog extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(RelationshipNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel3))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(EntityChoice1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(EntityChoice2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2)
+                    .addComponent(EntityChoice1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(EntityConstraintChoice1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel3)
+                    .addComponent(EntityChoice2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5)
+                    .addComponent(EntityConstraintChoice2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(OKButton)
@@ -218,7 +265,11 @@ public class RelationShipDialog extends javax.swing.JFrame {
     public void createNewRelationship() {
     	if (this.relationship ==null){
          if (isValidInput(RelationshipNameField.getText())){
-            ERToolView.createRelationship(RelationshipNameField.getText(),(Entity) ERToolView.findElementByName(EntityChoice1.getSelectedItem()),(Entity)  ERToolView.findElementByName(EntityChoice2.getSelectedItem()));
+            ERToolView.createRelationship(RelationshipNameField.getText(),
+            		(Entity) ERToolView.findElementByName(EntityChoice1.getSelectedItem()),
+            		(Entity)  ERToolView.findElementByName(EntityChoice2.getSelectedItem()),
+            		EntityConstraintChoice1.getSelectedItem(),
+            		EntityConstraintChoice2.getSelectedItem());
             this.setVisible(false);
             this.dispose();
         }
@@ -236,6 +287,8 @@ public class RelationShipDialog extends javax.swing.JFrame {
     			this.relationship.mLink.setFirstOwner((Entity) ERToolView.findElementByName(EntityChoice1.getSelectedItem()));
     			this.relationship.mLink.setSecondOwner((Entity) ERToolView.findElementByName(EntityChoice2.getSelectedItem()));
     			this.relationship.mLink.setName(RelationshipNameField.getText());
+    			this.relationship.mLink.setFirstConstraint(EntityConstraintChoice1.getSelectedItem());
+    			this.relationship.mLink.setSecondConstraint(EntityConstraintChoice2.getSelectedItem());
     			
     			ERToolView.currentFocus.updateToLink();
     			
@@ -265,12 +318,16 @@ public class RelationShipDialog extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.Choice EntityChoice1;
     private java.awt.Choice EntityChoice2;
+    private java.awt.Choice EntityConstraintChoice1;
+    private java.awt.Choice EntityConstraintChoice2;
     private javax.swing.JButton OKButton;
     private javax.swing.JTextField RelationshipNameField;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     // End of variables declaration//GEN-END:variables
 
     void positionCenter(JFrame frame) {

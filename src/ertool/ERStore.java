@@ -13,6 +13,10 @@ import javax.swing.JPanel;
 public class ERStore {
 	public static final String tINT = "int";
 	public static final String tSTR = "varchar";
+	public static final String rOneToMany = "1+";
+	public static final String rZeroToMany = "0+";
+	public static final String rOne = "1";
+	public static final String rZeroToOne = "0..1";
 	private JViewport container;
 	private ArrayList<ERScriptEntity> entityList;
 	private ArrayList<ERScriptAttribute> attributeList;

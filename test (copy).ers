@@ -1,0 +1,28 @@
+#Entities#
+ENTITY Dept
+ENTITY Topic
+ENTITY Employee
+WEAK ENTITY Research
+
+
+#Attributes#
+name IS ATTRIBUTE(varchar(15)) OF Dept
+id IS KEY ATTRIBUTE(int) OF Dept
+description IS ATTRIBUTE(varchar(500)) OF Dept
+topicID IS KEY ATTRIBUTE(int) OF Topic
+name IS ATTRIBUTE(varchar(50)) OF Topic
+description IS ATTRIBUTE(varchar(500)) OF Topic
+id IS KEY ATTRIBUTE(int) OF Research
+completion IS ATTRIBUTE(double) OF Research
+id IS KEY ATTRIBUTE(int) OF Employee
+name IS ATTRIBUTE(varchar(30)) OF Employee
+address IS ATTRIBUTE(varchar(50)) OF Employee
+phone IS ATTRIBUTE(varchar(7)) OF Employee
+salary IS ATTRIBUTE(double) OF Research
+startDate IS ATTRIBUTE(int) OF Employee
+
+
+#Relationships#
+Dept HAS has RELATIONSHIP WITH Topic
+Topic HAS has RELATIONSHIP WITH Research
+Employee HAS with RELATIONSHIP WITH Research

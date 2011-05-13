@@ -113,16 +113,26 @@ public class Relationship extends DraggableObject implements MouseListener{
     	parent.repaint();
     }
     
+    public void drawConstraints(Entity parent, Graphics g, int x, int y) {
+    	AttributeType constraint = null;
+    	if(firstEntity == parent) constraint = mLink.getFirstConstraint();
+    	else if(secondEntity == parent) constraint = mLink.getSecondConstraint();
+    	else return;
+    	
+    	g.drawString(constraint.getName(), x, y);
+    }
+    
 	@Override
 	public void draw(Graphics g) {
 		
              g.setColor(Color.BLACK);
              
               if (this.attributes.size()!=0){
-                   
+                   int i = 0;
                     for (Attribute a: this.attributes){
                         g.drawLine(x+width/2, y+height/2, a.x+width/2, a.y+height/2);
                     }
+                    
                     
                }
                 

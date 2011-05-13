@@ -141,6 +141,7 @@ public class Entity extends DraggableObject implements MouseListener{
             if (this.relationships.size()!=0){
                 for (Relationship r: this.relationships){
                     g.drawLine(x+width/2, y+height/2, r.x+width/2, r.y+height/2);
+                    r.drawConstraints(this, g, (x+width/2+r.x+width/2)/2, (y+height/2+r.y+height/2)/2);
                 }
             }
                

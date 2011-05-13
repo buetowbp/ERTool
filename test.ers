@@ -1,15 +1,19 @@
 #Entities#
-ENTITY A
-WEAK ENTITY BDF
-ENTITY C
-WEAK ENTITY D
+ENTITY School
+ENTITY Class
+ENTITY Student
 
 
 #Attributes#
-Name IS KEY ATTRIBUTE(varchar(50)) OF A
-hmm IS ATTRIBUTE(int) OF BDF
+name IS KEY ATTRIBUTE(varchar(50)) OF School
+cid IS KEY ATTRIBUTE(int) OF Class
+name IS ATTRIBUTE(varchar(100)) OF Class
+
 
 
 #Relationships#
-A HAS r1 RELATIONSHIP WITH D
-A HAS sdf RELATIONSHIP WITH BDF
+Many Student HAS a something RELATIONSHIP WITH Many School
+
+WEAK ENTITY Student-School
+Many Student HAS is RELATIONSHIP WITH One Attends
+Many School HAS is RELATIONSHIP WITH One Attends
