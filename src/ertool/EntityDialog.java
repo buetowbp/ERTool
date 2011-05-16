@@ -35,6 +35,8 @@ public class EntityDialog extends javax.swing.JFrame {
 		initComponents();
 
 		this.entity = e;
+		
+		this.positionCenter(ERToolView.frame);
 
 		this.setTitle("Edit Entity");
 		EntityNameField.setText(this.entity.getText());

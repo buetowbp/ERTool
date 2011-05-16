@@ -125,13 +125,23 @@ public class Attribute extends DraggableObject implements MouseListener{
                 g.setColor(this.belongsTo.getColor());
                 g.fillOval(x-3, y-3, width+6, height+6) ;
             
+                
+                //if this attribute is behind the object it belongs to, draw the line from this to the other object
+                if (!this.isInFrontOf(this.belongsTo)){
+                	
+                	g.drawLine(x + width / 2, y + height / 2, this.belongsTo.x + width / 2,
+							this.belongsTo.y + height / 2);
+                }
+                
                 //then draw actual oval
                 g.setColor(Color.WHITE);
                 g.fillOval(x, y, width, height);
                 
+               
                 
                 g.setColor(Color.BLACK);
                 Font prevFont=g.getFont();
+                
                 
                 // Center text horizontally and vertically within object
                 if (this.isKey){

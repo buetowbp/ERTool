@@ -45,6 +45,7 @@ public class AttributeDialog extends javax.swing.JFrame {
 		this.attribute = a;
 		TypeChoices.add(ERStore.tINT);
 		TypeChoices.add(ERStore.tSTR);
+		this.positionCenter(ERToolView.frame);
 		this.setTitle("Edit Attribute");
 		for (Entity e : ERToolView.entities) {
 			ElementChoices.add(e.getText());

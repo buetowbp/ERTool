@@ -58,6 +58,7 @@ public class RelationShipDialog extends javax.swing.JFrame {
     public RelationShipDialog(Relationship r) {
         initComponents();
         this.relationship = r;
+        this.positionCenter(ERToolView.frame);
         this.setTitle("Edit Relationship");
         for (Entity e: ERToolView.entities){
             EntityChoice1.add(e.getText());

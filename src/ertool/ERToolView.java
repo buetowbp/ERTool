@@ -26,6 +26,7 @@ import javax.swing.JOptionPane;
  * The application's main frame.
  */
 public class ERToolView extends FrameView {
+	public static JFrame frame;
 	public final static int SAVE_SCRIPT = 0;
 	public final static int SAVE_SQL = 1;
 	public final static int SAVE_XML = 2;
@@ -35,7 +36,8 @@ public class ERToolView extends FrameView {
         super(app);
 
         initComponents();
-
+        
+        ERToolView.frame = this.getFrame();
         // status bar initialization - message timeout, idle icon and busy animation, etc
         ResourceMap resourceMap = getResourceMap();
         int messageTimeout = resourceMap.getInteger("StatusBar.messageTimeout");
