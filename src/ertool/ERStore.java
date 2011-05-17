@@ -18,6 +18,7 @@ public class ERStore {
 	public static final String rZeroToMany = "0+";
 	public static final String rOne = "1";
 	public static final String rZeroToOne = "0..1";
+	public static final String ERROR_LINEINFO = "Error at line(%d): '%s'.";
 	public static boolean status = true; //Forces load or save to stop if false
 	private JViewport container;
 	private ArrayList<ERScriptEntity> entityList;
@@ -104,11 +105,11 @@ public class ERStore {
 			BufferedReader buffreader = new BufferedReader(inputreader);
 			String line;
 			try {
-				int i = 0;
+				int i = 1;
 				while(true) {
 					line = buffreader.readLine();
 					if(line == null) break;
-					if(line.trim().startsWith("#")) continue;
+					if(line.trim().startsWith("#")) {i++; continue;}
 					ERScriptEntity.load(line, this, i);
 					if(ERStore.status == false) {file.close(); return;}
 					ERScriptAttribute.load(line, this, i);

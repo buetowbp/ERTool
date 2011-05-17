@@ -11,8 +11,10 @@ public class ERScriptRelationship extends ERScript {
 	private static final String sKEY_CONSTRAINT_ONEMINUS = "ONE-";
 	private static final String sKEY_CONSTRAINT_MANYSTAR = "MANY*";
 	private static final String sKEY_CONSTRAINT_MANYPLUS = "MANY+";
-	private final String ERROR = "Relationship Error!";
-	private final String ERROR_CONSTRAINTS = "%s Constraint not provided.";
+	private final static String ERROR = "Relationship Error!";
+	private final static String ERROR_CONSTRAINT = "'%s' is not a valid %s Constraint.";
+	private final static String ERROR_OWNER = "'%s' is not a valid %s Owner.";
+	private final static String ERROR_NAME = "'%s' is not a valid Name.";
 	private String name;
 	private Entity firstOwner;
 	private Entity secondOwner;
@@ -56,34 +58,47 @@ public class ERScriptRelationship extends ERScript {
 			ERScriptRelationship relationship = new ERScriptRelationship(store.getContainer());
 			int argIndex = 0;
 			String constraint = "";
+			ERScriptEntity owner;
 			argList = line.split("[ ]+");
+			
+			//Get first constraint
 			constraint = getConstraint(argList[argIndex]);
-			if(constraint.length() == 0) { return false;}
+			if(constraint.length() == 0) {errorConstraint(index, line, argList[argIndex], "First"); return false;}
 			relationship.setFirstConstraint(constraint);
 			argIndex++;
-			relationship.setFirstOwner(store.getEntityByName(argList[argIndex].trim()).getLink());
+			
+			//Get first owner
+			owner = store.getEntityByName(argList[argIndex].trim());
+			if(owner == null) {errorOwner(index, line, argList[argIndex], "First"); return false;}
+			relationship.setFirstOwner(owner.getLink());
 			argIndex+=2;
+			
+			//Get name
 			String rName = "";
 			while(!argList[argIndex].equals(sKEY)) {
 				rName += argList[argIndex].trim() + " ";
 				argIndex++;
 			}
-			relationship.setName(rName.trim());
+			rName = rName.trim();
+			if(rName.length() == 0) {errorName(index, line, rName); return false;}
+			relationship.setName(rName);
 			argIndex+=2;
-			relationship.setSecondConstraint(getConstraint(argList[argIndex]));
+			
+			//Get second constraint
+			constraint = getConstraint(argList[argIndex]);
+			relationship.setSecondConstraint(constraint);
+			if(constraint.length() == 0) {errorConstraint(index, line, argList[argIndex], "Second"); return false;}
 			argIndex++;
-			relationship.setSecondOwner(store.getEntityByName(argList[argIndex].trim()).getLink());
+			
+			//Get second owner
+			owner = store.getEntityByName(argList[argIndex].trim());
+			if(owner == null) {errorOwner(index, line, argList[argIndex], "Second"); return false;}
+			relationship.setSecondOwner(owner.getLink());
+			
 			int inbetween = (relationship.getFirstOwner().x + relationship.getSecondOwner().x)/2;
 			store.addRelationship(relationship).setLocation(inbetween, (int) (50+Math.random()*200));
 			return true;
 		} else if(line.contains(".")) {
-			/*argList = line.split("[{.|=}]+");
-			ERScriptEntity entity = store.getEntityByName(argList[0].trim());
-			if(argList[1].contains(sKEY_ISWEAK)) {
-				entity.setIsWeak(argList[2].contains("TRUE"));
-			} else if(argList[1].contains(sKEY_NAME)) {
-				entity.setName(argList[2].trim());
-			}*/
 			return true;
 		}
 		return false;
@@ -108,10 +123,25 @@ public class ERScriptRelationship extends ERScript {
 		return scriptConstraint;
 	}
 	
-	private void errorConstraint(String constraint) {
+	private static void errorConstraint(int lineNumber, String line, String arg, String constraint) {
 		String errorMessage = ERROR + "\n";
-		errorMessage += String.format(ERROR_CONSTRAINTS, constraint) + "\n";
-		ERStore.alert("Relationship");
+		errorMessage += String.format(ERROR_CONSTRAINT, arg, constraint) + "\n";
+		errorMessage += String.format(ERStore.ERROR_LINEINFO, lineNumber, line) + "\n";
+		ERStore.alert(errorMessage);
+	}
+	
+	private static void errorOwner(int lineNumber, String line, String arg, String owner) {
+		String errorMessage = ERROR + "\n";
+		errorMessage += String.format(ERROR_OWNER, arg, owner) + "\n";
+		errorMessage += String.format(ERStore.ERROR_LINEINFO, lineNumber, line) + "\n";
+		ERStore.alert(errorMessage);
+	}
+	
+	private static void errorName(int lineNumber, String line, String arg) {
+		String errorMessage = ERROR + "\n";
+		errorMessage += String.format(ERROR_NAME, arg) + "\n";
+		errorMessage += String.format(ERStore.ERROR_LINEINFO, lineNumber, line) + "\n";
+		ERStore.alert(errorMessage);
 	}
 	
 	public void updateFromLink() {
