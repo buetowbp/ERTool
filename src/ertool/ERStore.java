@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class ERStore {
@@ -17,6 +18,7 @@ public class ERStore {
 	public static final String rZeroToMany = "0+";
 	public static final String rOne = "1";
 	public static final String rZeroToOne = "0..1";
+	private static boolean status = true; //Forces load or save to stop if false
 	private JViewport container;
 	private ArrayList<ERScriptEntity> entityList;
 	private ArrayList<ERScriptAttribute> attributeList;
@@ -108,8 +110,11 @@ public class ERStore {
 					if(line == null) break;
 					if(line.trim().startsWith("#")) continue;
 					ERScriptEntity.load(line, this, i);
+					if(ERStore.status == false) {file.close(); return;}
 					ERScriptAttribute.load(line, this, i);
+					if(ERStore.status == false) {file.close(); return;}
 					ERScriptRelationship.load(line, this, i);
+					if(ERStore.status == false) {file.close(); return;}
 					i++;
 				}
 			} catch(IOException e) {/*IO ERROR*/}
@@ -127,21 +132,29 @@ public class ERStore {
 			if(saveType == ERToolView.SAVE_SCRIPT) out.write("#Entities#\n");
 			for(i=0; i<entityList.size(); i++) {
 				entityList.get(i).save(out, saveType);
+				if(ERStore.status == false) {out.close(); return;}
 			}
 			if(saveType == ERToolView.SAVE_SCRIPT) out.write("\n\n");
 			
 			if(saveType == ERToolView.SAVE_SCRIPT) out.write("#Attributes#\n");
 			for(i=0; i<attributeList.size(); i++) {
 				attributeList.get(i).save(out, saveType);
+				if(ERStore.status == false) {out.close(); return;}
 			}
 			if(saveType == ERToolView.SAVE_SCRIPT) out.write("\n\n");
 			
 			if(saveType == ERToolView.SAVE_SCRIPT) out.write("#Relationships#\n");
 			for(i=0; i<relationshipList.size(); i++) {
 				relationshipList.get(i).save(out, saveType);
+				if(ERStore.status == false) {out.close(); return;}
 			}
 			
 			out.close();
 		} catch(java.io.IOException e) {/*IO ERROR*/}
+	}
+	
+	public static void alert(String message) {
+		ERStore.status = false;
+		JOptionPane.showMessageDialog(ERToolView.getPanel(), message);
 	}
 }

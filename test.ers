@@ -10,10 +10,5 @@ cid IS KEY ATTRIBUTE(int) OF Class
 name IS ATTRIBUTE(varchar(100)) OF Class
 
 
-
 #Relationships#
-Many Student HAS a something RELATIONSHIP WITH Many School
-
-WEAK ENTITY Student-School
-Many Student HAS is RELATIONSHIP WITH One Attends
-Many School HAS is RELATIONSHIP WITH One Attends
+School HAS course RELATIONSHIP WITH MANY* Class
