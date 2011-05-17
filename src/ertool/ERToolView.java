@@ -113,19 +113,40 @@ public class ERToolView extends FrameView {
     
     @Action
     public void generate() {
+    	ERStore.status = true;
+    	if (!checkWeakEntities()){
+			return;
+		}
     	store.save("test.sql", ERToolView.SAVE_SQL);
     }
     
     @Action
     public void save(){
+    	ERStore.status = true;
+    	if (!checkWeakEntities()){
+			return;
+		}
         store.save("test.ers", ERToolView.SAVE_SCRIPT);
     }
     
     @Action
     public void load(){
+    	ERStore.status = true;
     	clear();
         store.load("test.ers");
     }
+    
+    private boolean checkWeakEntities() {
+		for (Entity e: ERToolView.entities){
+			if (e.isWeak){
+				if (e.relationships.size() < 2){
+					ERStore.alert(String.format("Weak entity %s must take part in two or more relationships.", e.getText()));
+					return false;
+				}
+			}
+		}
+		return true;
+	}
     
     @Action
     public void newER() {

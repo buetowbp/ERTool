@@ -18,7 +18,7 @@ public class ERStore {
 	public static final String rZeroToMany = "0+";
 	public static final String rOne = "1";
 	public static final String rZeroToOne = "0..1";
-	private static boolean status = true; //Forces load or save to stop if false
+	public static boolean status = true; //Forces load or save to stop if false
 	private JViewport container;
 	private ArrayList<ERScriptEntity> entityList;
 	private ArrayList<ERScriptAttribute> attributeList;

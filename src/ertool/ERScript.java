@@ -40,11 +40,14 @@ public class ERScript {
 	}
 	
 	public void save(BufferedWriter out, int saveType) throws IOException {
+		
 		if(saveType == ERToolView.SAVE_SCRIPT) save_script(out);
 		if(saveType == ERToolView.SAVE_SQL) save_sql(out);
 		if(saveType == ERToolView.SAVE_XML) save_xml(out);
 	}
 	
+	
+
 	protected void save_script(BufferedWriter out) throws IOException {
 	}
 	

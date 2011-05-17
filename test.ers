@@ -1,14 +1,13 @@
 #Entities#
-ENTITY School
-ENTITY Class
-ENTITY Student
+WEAK ENTITY fghfgh
+ENTITY sdfsdfsdf
+ENTITY sdfff
 
 
 #Attributes#
-name IS KEY ATTRIBUTE(varchar(50)) OF School
-cid IS KEY ATTRIBUTE(int) OF Class
-name IS ATTRIBUTE(varchar(100)) OF Class
+sdfsd IS ATTRIBUTE(int) OF fghfgh
 
 
 #Relationships#
-School HAS course RELATIONSHIP WITH MANY* Class
+ONE fghfgh HAS sss RELATIONSHIP WITH ONE sdfsdfsdf
+ONE fghfgh HAS sdfff RELATIONSHIP WITH ONE sdfff
