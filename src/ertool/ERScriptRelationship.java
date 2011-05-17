@@ -53,7 +53,7 @@ public class ERScriptRelationship extends ERScript {
 		//line = line.toUpperCase();
 		String[] argList;
 		if(line.contains(sKEY)) {
-			ERScriptRelationship relationship = new ERScriptRelationship(store.getContainer());Something
+			ERScriptRelationship relationship = new ERScriptRelationship(store.getContainer());
 			int argIndex = 0;
 			String constraint = "";
 			argList = line.split("[ ]+");
