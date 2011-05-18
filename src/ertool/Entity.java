@@ -207,11 +207,13 @@ public class Entity extends DraggableObject implements MouseListener {
 				int distanceY;
 				self.setLocation(event.getX() - width / 2, event.getY()
 						- height / 2);
+                                if (ERToolView.hDrag){
 				for (int i =0; i < self.attributes.size(); i++){
 			
 					self.attributes.get(i).setLocation(self.x - xDistances.get(i), self.y - yDistances.get(i));
 					
 				}
+                                }
 				
 			}
 

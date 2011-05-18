@@ -36,7 +36,7 @@ public class ERToolView extends FrameView {
         super(app);
 
         initComponents();
-        
+        this.store = new ERStore((JViewport)Viewport);
         ERToolView.frame = this.getFrame();
         // status bar initialization - message timeout, idle icon and busy animation, etc
         ResourceMap resourceMap = getResourceMap();
@@ -239,20 +239,19 @@ public class ERToolView extends FrameView {
         Viewport = new JViewport();
         menuBar = new javax.swing.JMenuBar();
         javax.swing.JMenu fileMenu = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
         javax.swing.JMenuItem exitMenuItem = new javax.swing.JMenuItem();
-        javax.swing.JMenuItem saveMenuItem = new javax.swing.JMenuItem();
-        javax.swing.JMenuItem loadMenuItem = new javax.swing.JMenuItem();
-        javax.swing.JMenuItem generateMenuItem = new javax.swing.JMenuItem();
-        javax.swing.JMenuItem newMenuItem = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
         javax.swing.JMenu helpMenu = new javax.swing.JMenu();
         javax.swing.JMenuItem aboutMenuItem = new javax.swing.JMenuItem();
         statusPanel = new javax.swing.JPanel();
         javax.swing.JSeparator statusPanelSeparator = new javax.swing.JSeparator();
         statusMessageLabel = new javax.swing.JLabel();
         statusAnimationLabel = new javax.swing.JLabel();
-        
-        store = new ERStore((JViewport)Viewport);
-        
 
         mainPanel.setName("mainPanel"); // NOI18N
 
@@ -284,7 +283,6 @@ public class ERToolView extends FrameView {
         jButton3.setFocusable(false);
         jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton3.setName("jButton3"); // NOI18N
-        
         jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(jButton3);
 
@@ -311,13 +309,12 @@ public class ERToolView extends FrameView {
         javax.swing.GroupLayout ViewportLayout = new javax.swing.GroupLayout(Viewport);
         Viewport.setLayout(ViewportLayout);
         ViewportLayout.setHorizontalGroup(
-            
             ViewportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 898, Short.MAX_VALUE)
         );
         ViewportLayout.setVerticalGroup(
             ViewportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 491, Short.MAX_VALUE)
+            .addGap(0, 495, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
@@ -337,27 +334,45 @@ public class ERToolView extends FrameView {
 
         menuBar.setName("menuBar"); // NOI18N
 
-       
         fileMenu.setText(resourceMap.getString("fileMenu.text")); // NOI18N
         fileMenu.setName("fileMenu"); // NOI18N
 
-        newMenuItem.setAction(actionMap.get("newER"));
-        newMenuItem.setName("newMenuItem");
-        generateMenuItem.setAction(actionMap.get("generate"));
-        generateMenuItem.setName("generateMenuItem");
-        saveMenuItem.setAction(actionMap.get("save"));
-        saveMenuItem.setName("saveMenutItem");
-        loadMenuItem.setAction(actionMap.get("load"));
-        loadMenuItem.setName("loadMenutItem");
+        jMenuItem1.setAction(actionMap.get("newER")); // NOI18N
+        jMenuItem1.setText(resourceMap.getString("jMenuItem1.text")); // NOI18N
+        jMenuItem1.setName("jMenuItem1"); // NOI18N
+        fileMenu.add(jMenuItem1);
+
+        jMenuItem2.setAction(actionMap.get("generate")); // NOI18N
+        jMenuItem2.setText(resourceMap.getString("jMenuItem2.text")); // NOI18N
+        jMenuItem2.setName("jMenuItem2"); // NOI18N
+        fileMenu.add(jMenuItem2);
+
+        jMenuItem3.setAction(actionMap.get("save")); // NOI18N
+        jMenuItem3.setText(resourceMap.getString("jMenuItem3.text")); // NOI18N
+        jMenuItem3.setName("jMenuItem3"); // NOI18N
+        fileMenu.add(jMenuItem3);
+
+        jMenuItem4.setAction(actionMap.get("load")); // NOI18N
+        jMenuItem4.setText(resourceMap.getString("jMenuItem4.text")); // NOI18N
+        jMenuItem4.setName("jMenuItem4"); // NOI18N
+        fileMenu.add(jMenuItem4);
+
         exitMenuItem.setAction(actionMap.get("quit")); // NOI18N
         exitMenuItem.setName("exitMenuItem"); // NOI18N
-        fileMenu.add(newMenuItem);
-        fileMenu.add(generateMenuItem);
-        fileMenu.add(saveMenuItem);
-        fileMenu.add(loadMenuItem);
         fileMenu.add(exitMenuItem);
 
         menuBar.add(fileMenu);
+
+        jMenu1.setText(resourceMap.getString("jMenu1.text")); // NOI18N
+        jMenu1.setName("jMenu1"); // NOI18N
+
+        jCheckBoxMenuItem1.setAction(actionMap.get("setHDrag")); // NOI18N
+        jCheckBoxMenuItem1.setSelected(true);
+        jCheckBoxMenuItem1.setText(resourceMap.getString("jCheckBoxMenuItem1.text")); // NOI18N
+        jCheckBoxMenuItem1.setName("jCheckBoxMenuItem1"); // NOI18N
+        jMenu1.add(jCheckBoxMenuItem1);
+
+        menuBar.add(jMenu1);
 
         helpMenu.setText(resourceMap.getString("helpMenu.text")); // NOI18N
         helpMenu.setName("helpMenu"); // NOI18N
@@ -368,7 +383,6 @@ public class ERToolView extends FrameView {
 
         menuBar.add(helpMenu);
 
-        
         statusPanel.setName("statusPanel"); // NOI18N
 
         statusPanelSeparator.setName("statusPanelSeparator"); // NOI18N
@@ -386,7 +400,7 @@ public class ERToolView extends FrameView {
             .addGroup(statusPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(statusMessageLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 874, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 878, Short.MAX_VALUE)
                 .addComponent(statusAnimationLabel)
                 .addContainerGap())
         );
@@ -399,7 +413,6 @@ public class ERToolView extends FrameView {
                     .addComponent(statusMessageLabel)
                     .addComponent(statusAnimationLabel))
                 .addGap(3, 3, 3))
-                
         );
 
         setComponent(mainPanel);
@@ -517,6 +530,12 @@ public class ERToolView extends FrameView {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenuBar menuBar;
@@ -526,6 +545,7 @@ public class ERToolView extends FrameView {
     // End of variables declaration//GEN-END:variables
 
     public static ERScript currentFocus;
+    public static boolean hDrag = true;
     public static ArrayList<DraggableObject> objects = new ArrayList<DraggableObject>();
     public static ArrayList<Entity> entities = new ArrayList<Entity>();
     public static ArrayList<Relationship> relationships = new ArrayList<Relationship>();
@@ -557,6 +577,11 @@ public class ERToolView extends FrameView {
 		currentFocus.getLink().edit();
 		
 	}
+
+    @Action
+    public void setHDrag() {
+        ERToolView.hDrag = !(ERToolView.hDrag);
+    }
     
     
 }
