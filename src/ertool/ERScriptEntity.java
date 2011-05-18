@@ -10,6 +10,7 @@ public class ERScriptEntity extends ERScript{
 	private static final String sKEY_WEAK = "WEAK";
 	private static final String sKEY_ISWEAK = "isWeak";
 	private static final String sKEY_NAME = "name";
+	private static final String SQL_PRIMARY = "PRIMARY KEY";
 	private String name;
 	private boolean isWeak;
 	
@@ -44,10 +45,11 @@ public class ERScriptEntity extends ERScript{
 		for(i=0; i<((Entity)uiLink).attributes.size(); i++) {
 			script += ((Entity)uiLink).attributes.get(i).mLink.getName();
 			script += " " + ((Entity)uiLink).attributes.get(i).mLink.getType().toString();
+			if(((Entity)uiLink).attributes.get(i).isKey) script += " " + SQL_PRIMARY; 
 			if(i<((Entity)uiLink).attributes.size()-1) script += ",\n";
 			else script += "\n";
 		}
-		script += ")\n";
+		script += ")\ngo\n\n";
 		out.write(script);
 	}
 	

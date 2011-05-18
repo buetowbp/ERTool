@@ -1,7 +1,14 @@
-CREATE TABLE fghfgh (
-sdfsd int
+CREATE TABLE School (
+ID int PRIMARY KEY
 )
-CREATE TABLE sdfsdfsdf (
+go
+
+CREATE TABLE Class (
+ID int PRIMARY KEY
 )
-CREATE TABLE sdfff (
-)
+go
+
+ALTER TABLE School
+	ADD FOREIGN KEY (class_id) reference Class(ID)
+go
+
