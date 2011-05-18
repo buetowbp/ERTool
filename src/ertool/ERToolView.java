@@ -139,6 +139,12 @@ public class ERToolView extends FrameView {
     private boolean checkWeakEntities() {
 		for (Entity e: ERToolView.entities){
 			if (e.isWeak){
+				if (e.attributes.isEmpty() || !e.hasPrimaryKey()){
+					ERStore.alert(String.format("Weak entity %s must have a primary key.", e.getText()));
+					return false;
+					
+				}
+				
 				if (e.relationships.size() < 2){
 					ERStore.alert(String.format("Weak entity %s must take part in two or more relationships.", e.getText()));
 					return false;
@@ -177,7 +183,8 @@ public class ERToolView extends FrameView {
     	objects.clear();
     	((JViewport) Viewport).clearGraphics();
     }
-    
+
+  
     public static void createEntity(String text, Boolean isWeak){
     	ERScriptEntity entityModel = new ERScriptEntity((JViewport)Viewport);
     	entityModel.setIsWeak(isWeak);
@@ -245,6 +252,7 @@ public class ERToolView extends FrameView {
         statusAnimationLabel = new javax.swing.JLabel();
         
         store = new ERStore((JViewport)Viewport);
+        
 
         mainPanel.setName("mainPanel"); // NOI18N
 
@@ -276,6 +284,7 @@ public class ERToolView extends FrameView {
         jButton3.setFocusable(false);
         jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton3.setName("jButton3"); // NOI18N
+        
         jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(jButton3);
 
@@ -302,6 +311,7 @@ public class ERToolView extends FrameView {
         javax.swing.GroupLayout ViewportLayout = new javax.swing.GroupLayout(Viewport);
         Viewport.setLayout(ViewportLayout);
         ViewportLayout.setHorizontalGroup(
+            
             ViewportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 898, Short.MAX_VALUE)
         );
@@ -327,6 +337,7 @@ public class ERToolView extends FrameView {
 
         menuBar.setName("menuBar"); // NOI18N
 
+       
         fileMenu.setText(resourceMap.getString("fileMenu.text")); // NOI18N
         fileMenu.setName("fileMenu"); // NOI18N
 
@@ -357,6 +368,7 @@ public class ERToolView extends FrameView {
 
         menuBar.add(helpMenu);
 
+        
         statusPanel.setName("statusPanel"); // NOI18N
 
         statusPanelSeparator.setName("statusPanelSeparator"); // NOI18N
@@ -387,6 +399,7 @@ public class ERToolView extends FrameView {
                     .addComponent(statusMessageLabel)
                     .addComponent(statusAnimationLabel))
                 .addGap(3, 3, 3))
+                
         );
 
         setComponent(mainPanel);
@@ -439,6 +452,7 @@ public class ERToolView extends FrameView {
         attributeModel.setName(text);
         attributeModel.setType(type);
         attributeModel.setTypeConstraint(constraint);
+  
     	Attribute attribute = store.addAttribute(attributeModel);
     }
 
@@ -459,6 +473,7 @@ public class ERToolView extends FrameView {
     	ERScriptRelationship relationshipModel = new ERScriptRelationship((JViewport)Viewport);
     	relationshipModel.setName(text);
     	relationshipModel.setFirstOwner(e1);
+     
     	relationshipModel.setSecondOwner(e2);
     	relationshipModel.setFirstConstraint(c1);
     	relationshipModel.setSecondConstraint(c2);

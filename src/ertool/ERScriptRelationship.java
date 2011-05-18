@@ -14,10 +14,12 @@ public class ERScriptRelationship extends ERScript {
 	private static final String SQL_ALTER = "ALTER TABLE %s";
 	private static final String SQL_ADDFK = "ADD FOREIGN KEY (%s)";
 	private static final String SQL_FKREF = "REFERENCES %s(%s)";
+	private static final String SQL_ADDATTR = "ADD %s %s";
+	private static final String SQL_ADDWEAKATTR ="ADD %s %s PRIMARY KEY";
 	private final static String ERROR = "Relationship Error!";
 	private final static String ERROR_CONSTRAINT = "'%s' is not a valid %s Constraint.";
 	private final static String ERROR_OWNER = "'%s' is not a valid %s Owner.";
-	private final static String ERROR_NAME = "'%s' is nargsot a valid Name.";
+	private final static String ERROR_NAME = "'%s' is not a valid Name.";
 	private String name;
 	private Entity firstOwner;
 	private Entity secondOwner;
@@ -57,14 +59,22 @@ public class ERScriptRelationship extends ERScript {
 	protected void save_sql(BufferedWriter out) throws IOException {
 		int i;
 		int keyIndex = 0;
+		if(secondOwner.isWeak) {
+			Entity temp = secondOwner;
+			secondOwner = firstOwner;
+			firstOwner = temp;
+		}
 		for(i=0; i<secondOwner.attributes.size(); i++) {
 			if(secondOwner.attributes.get(i).isKey) {
 				keyIndex = i;
 				break;
 			}
 		}
+		
 		String fkName = secondOwner.getText().toLowerCase() + "_" + secondOwner.attributes.get(keyIndex).getText().toLowerCase();
 		String script = String.format(SQL_ALTER, firstOwner.getText()) + "\n";
+		script += "\t" +  String.format(SQL_ADDATTR, fkName, secondOwner.attributes.get(keyIndex).mLink.getType().getName()) + "\ngo\n\n";
+		script += String.format(SQL_ALTER, firstOwner.getText()) + "\n";
 		script += "\t" + String.format(SQL_ADDFK, fkName);
 		script += " " + String.format(SQL_FKREF, secondOwner.getText(), secondOwner.attributes.get(keyIndex).getText());
 		script += "\ngo\n\n";

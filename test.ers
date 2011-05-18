@@ -1,2 +1,15 @@
 #Entities#
-WEAK ENTITY sdfsdf
+ENTITY Person
+ENTITY Furniture
+WEAK ENTITY Person_Furniture
+
+
+#Attributes#
+ID IS KEY ATTRIBUTE(int) OF Person
+ID IS KEY ATTRIBUTE(int) OF Furniture
+ID IS KEY ATTRIBUTE(int) OF Person_Furniture
+
+
+#Relationships#
+MANY+ Person HAS dunno RELATIONSHIP WITH ONE Person_Furniture
+MANY+ Furniture HAS dunno RELATIONSHIP WITH ONE Person_Furniture
