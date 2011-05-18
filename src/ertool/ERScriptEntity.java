@@ -2,6 +2,7 @@ package ertool;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
@@ -39,16 +40,24 @@ public class ERScriptEntity extends ERScript{
 	
 	protected void save_sql(BufferedWriter out) throws IOException {
 		int i;
+		ArrayList<String> primaryKeys = new ArrayList<String>(1); 
 		String script = "CREATE TABLE ";
 		script += name;
 		script += " (\n";
+		
 		for(i=0; i<((Entity)uiLink).attributes.size(); i++) {
 			script += ((Entity)uiLink).attributes.get(i).mLink.getName();
 			script += " " + ((Entity)uiLink).attributes.get(i).mLink.getType().toString();
 			if(((Entity)uiLink).attributes.get(i).isKey) script += " " + SQL_PRIMARY; 
 			if(i<((Entity)uiLink).attributes.size()-1) script += ",\n";
-			else script += "\n";
+			if(((Entity)uiLink).attributes.get(i).isKey) primaryKeys.add(((Entity)uiLink).attributes.get(i).getText());
 		}
+		script += ",\nPRIMARY KEY (";
+		for(i=0; i<primaryKeys.size(); i++) {
+			script += primaryKeys.get(i);
+			if(i<primaryKeys.size()-1) script += ", ";
+		}
+		script += ")\n";
 		script += ")\ngo\n\n";
 		out.write(script);
 	}

@@ -60,6 +60,12 @@ public class ERScriptRelationship extends ERScript {
 	protected void save_sql(BufferedWriter out) throws IOException {
 		int i;
 		int keyIndex = 0;
+		String c1 = firstConstraint.getName();
+		String c2 = secondConstraint.getName();
+		if((c1.equals(ERStore.rZeroToMany) || c1.equals(ERStore.rOneToMany)) && (c2.equals(ERStore.rZeroToMany) || c2.equals(ERStore.rOneToMany))) {
+			save_sql_newtable(out);
+			return;
+		}
 		if(secondOwner.isWeak) {
 			Entity temp = secondOwner;
 			secondOwner = firstOwner;
@@ -79,6 +85,35 @@ public class ERScriptRelationship extends ERScript {
 		script += "\t" + String.format(SQL_ADDFK, fkName);
 		script += " " + String.format(SQL_FKREF, secondOwner.getText(), secondOwner.attributes.get(keyIndex).getText());
 		script += "\ngo\n\n";
+		out.write(script);
+	}
+	
+	private void save_sql_newtable(BufferedWriter out) throws IOException {
+		int i;
+		int keyIndexOne = 0;
+		int keyIndexTwo = 0;
+		for(i=0; i<firstOwner.attributes.size(); i++) {
+			if(firstOwner.attributes.get(i).isKey) {
+				keyIndexOne = i;
+				break;
+			}
+		}
+		for(i=0; i<secondOwner.attributes.size(); i++) {
+			if(secondOwner.attributes.get(i).isKey) {
+				keyIndexTwo = i;
+				break;
+			}
+		}
+		String attrOne = String.format("%s_%s", firstOwner.getText(), firstOwner.attributes.get(keyIndexOne).getText()); 
+		String attrTwo = String.format("%s_%s", secondOwner.getText(), secondOwner.attributes.get(keyIndexTwo).getText());
+		String tableName = String.format("%s_%s", firstOwner.getText(), secondOwner.getText());
+		String script = String.format("CREATE TABLE %s (\n", tableName);
+		script += String.format("%s %s,\n", attrOne, firstOwner.attributes.get(keyIndexOne).mLink.getType().toString());
+		script += String.format("%s %s,\n", attrTwo, secondOwner.attributes.get(keyIndexTwo).mLink.getType().toString());
+		script += String.format("PRIMARY KEY (%s, %s),\n", attrOne, attrTwo);
+		script += String.format("FOREIGN KEY (%s) REFERENCES %s(%s),\n", attrOne, firstOwner.getText(), firstOwner.attributes.get(keyIndexOne).getText());
+		script += String.format("FOREIGN KEY (%s) REFERENCES %s(%s)\n", attrTwo, secondOwner.getText(), secondOwner.attributes.get(keyIndexTwo).getText());
+		script += ")\ngo\n\n";
 		out.write(script);
 	}
 	

@@ -1,15 +1,40 @@
 #Entities#
-ENTITY Person
-ENTITY Furniture
-WEAK ENTITY Person_Furniture
+ENTITY Student
+ENTITY Advisor
+ENTITY Section
+ENTITY Instructor
+ENTITY Course
+ENTITY Text
 
 
 #Attributes#
-ID IS KEY ATTRIBUTE(int) OF Person
-ID IS KEY ATTRIBUTE(int) OF Furniture
-ID IS KEY ATTRIBUTE(int) OF Person_Furniture
+StudentId IS KEY ATTRIBUTE(int) OF Student
+Sname IS ATTRIBUTE(varchar(50)) OF Student
+Major IS ATTRIBUTE(varchar(20)) OF Student
+DateDeclared IS ATTRIBUTE(int) OF Student
+AdvisorName IS ATTRIBUTE(varchar(50)) OF Advisor
+AdvisorId IS KEY ATTRIBUTE(int) OF Advisor
+MajorAdvised IS ATTRIBUTE(varchar(20)) OF Advisor
+ID IS KEY ATTRIBUTE(int) OF Section
+CourseID IS ATTRIBUTE(int) OF Section
+SectionID IS ATTRIBUTE(int) OF Section
+Days_Time_Offered IS ATTRIBUTE(varchar(100)) OF Section
+TermOffered IS ATTRIBUTE(int) OF Section
+YearOffered IS ATTRIBUTE(int) OF Section
+InstSSN IS KEY ATTRIBUTE(int) OF Instructor
+InstName IS ATTRIBUTE(varchar(50)) OF Instructor
+CourseID IS KEY ATTRIBUTE(int) OF Course
+Description IS ATTRIBUTE(varchar(2500)) OF Course
+Hours IS ATTRIBUTE(int) OF Course
+ISBN IS KEY ATTRIBUTE(int) OF Text
+AuthorName IS ATTRIBUTE(varchar(50)) OF Text
 
 
 #Relationships#
-MANY+ Person HAS dunno RELATIONSHIP WITH ONE Person_Furniture
-MANY+ Furniture HAS dunno RELATIONSHIP WITH ONE Person_Furniture
+MANY+ Advisor HAS advises RELATIONSHIP WITH MANY+ Student
+MANY+ Student HAS enroll RELATIONSHIP WITH MANY+ Section
+MANY+ Section HAS assigned RELATIONSHIP WITH ONE Instructor
+ONE Course HAS sectionsOffered RELATIONSHIP WITH MANY+ Section
+MANY+ Course HAS courseText RELATIONSHIP WITH MANY+ Text
+MANY+ Instructor HAS selcetText RELATIONSHIP WITH MANY* Text
+MANY+ Instructor HAS canTeach RELATIONSHIP WITH MANY* Course
