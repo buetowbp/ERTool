@@ -312,4 +312,13 @@ public class Entity extends DraggableObject implements MouseListener {
 
 	}
 
+	public boolean hasPrimaryKey() {
+		for (Attribute a: this.attributes){
+			if (a.isKey){
+				return true;
+			}
+		}
+		return false;
+	}
+
 }

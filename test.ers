@@ -1,13 +1,2 @@
 #Entities#
-WEAK ENTITY fghfgh
-ENTITY sdfsdfsdf
-ENTITY sdfff
-
-
-#Attributes#
-sdfsd IS ATTRIBUTE(int) OF fghfgh
-
-
-#Relationships#
-ONE fghfgh HAS sss RELATIONSHIP WITH ONE sdfsdfsdf
-ONE fghfgh HAS sdfff RELATIONSHIP WITH ONE sdfff
+WEAK ENTITY sdfsdf

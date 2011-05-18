@@ -143,6 +143,12 @@ public class ERToolView extends FrameView {
 					ERStore.alert(String.format("Weak entity %s must take part in two or more relationships.", e.getText()));
 					return false;
 				}
+				for (Relationship r: e.relationships){
+					if (!r.getOther(e).hasPrimaryKey()){
+						ERStore.alert(String.format("Entity '%s' must have a primary key in order to satisfy \n the foreign key requirements for weak entity '%s'.", r.getOther(e).getText(),e.getText()));
+						return false;
+					}
+				}
 			}
 		}
 		return true;

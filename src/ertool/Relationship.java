@@ -10,6 +10,7 @@ package ertool;
  */
 
 import javax.swing.*;
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -299,5 +300,12 @@ public class Relationship extends DraggableObject implements MouseListener {
 		this.secondEntity.relationships.remove(this);
 		this.firstEntity = null;
 		this.secondEntity = null;
+	}
+
+	public Entity getOther(Entity e) {
+		if (this.firstEntity.equals(e)){
+			return this.secondEntity;
+		}
+		else return this.firstEntity;
 	}
 }
