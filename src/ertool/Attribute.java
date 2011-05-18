@@ -25,8 +25,8 @@ import java.util.Map;
 import javax.swing.*;
 
 public class Attribute extends DraggableObject implements MouseListener{
-	private int width=0;
-	private int height=0;
+	int width=0;
+	int height=0;
 	public ERScriptAttribute mLink;
 	private MouseMotionListener moveListener;
          private String text;

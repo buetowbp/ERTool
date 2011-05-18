@@ -266,6 +266,8 @@ public class RelationShipDialog extends javax.swing.JFrame {
     public void createNewRelationship() {
     	if (this.relationship ==null){
          if (isValidInput(RelationshipNameField.getText())){
+        	 
+        	 
             ERToolView.createRelationship(RelationshipNameField.getText(),
             		(Entity) ERToolView.findElementByName(EntityChoice1.getSelectedItem()),
             		(Entity)  ERToolView.findElementByName(EntityChoice2.getSelectedItem()),
@@ -273,7 +275,9 @@ public class RelationShipDialog extends javax.swing.JFrame {
             		EntityConstraintChoice2.getSelectedItem());
             this.setVisible(false);
             this.dispose();
+        	 
         }
+         
         else{
             
             JOptionPane.showMessageDialog(rootPane, "Relationship name cannot be blank. Please try again.");
@@ -284,6 +288,7 @@ public class RelationShipDialog extends javax.swing.JFrame {
     	else{
     		if (isValidInput(RelationshipNameField.getText())){
     			this.relationship.removeEntities();
+
     			
     			this.relationship.mLink.setFirstOwner((Entity) ERToolView.findElementByName(EntityChoice1.getSelectedItem()));
     			this.relationship.mLink.setSecondOwner((Entity) ERToolView.findElementByName(EntityChoice2.getSelectedItem()));

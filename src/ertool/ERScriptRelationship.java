@@ -16,6 +16,7 @@ public class ERScriptRelationship extends ERScript {
 	private static final String SQL_FKREF = "REFERENCES %s(%s)";
 	private static final String SQL_ADDATTR = "ADD %s %s";
 	private static final String SQL_ADDWEAKATTR ="ADD %s %s PRIMARY KEY";
+	private static final String SQL_ADDMANYTOMANY = "";
 	private final static String ERROR = "Relationship Error!";
 	private final static String ERROR_CONSTRAINT = "'%s' is not a valid %s Constraint.";
 	private final static String ERROR_OWNER = "'%s' is not a valid %s Owner.";

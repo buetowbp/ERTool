@@ -195,12 +195,24 @@ public class Entity extends DraggableObject implements MouseListener {
 		final Entity self = this;
 		ERToolView.currentFocus = mLink;
 		ERToolView.PropertyField.setText(self.getText());
+		
 
 		moveListener = new MouseMotionListener() {
+			private ArrayList<Integer> xDistances = self.getAttributeXDifferences();
+			private ArrayList<Integer> yDistances = self.getAttributeYDifferences();
+			
 			@Override
 			public void mouseDragged(MouseEvent event) {
+				int distanceX;
+				int distanceY;
 				self.setLocation(event.getX() - width / 2, event.getY()
 						- height / 2);
+				for (int i =0; i < self.attributes.size(); i++){
+			
+					self.attributes.get(i).setLocation(self.x - xDistances.get(i), self.y - yDistances.get(i));
+					
+				}
+				
 			}
 
 			@Override
@@ -209,6 +221,24 @@ public class Entity extends DraggableObject implements MouseListener {
 			}
 		};
 		parent.addMouseMotionListener(moveListener);
+	}
+
+	protected ArrayList<Integer> getAttributeYDifferences() {
+		ArrayList<Integer> retArray = new ArrayList<Integer>();
+		for (Attribute a: this.attributes){
+			retArray.add(this.y-a.y);
+		}
+		
+		return retArray;
+	}
+
+	protected ArrayList<Integer> getAttributeXDifferences() {
+		ArrayList<Integer> retArray = new ArrayList<Integer>();
+		for (Attribute a: this.attributes){
+			retArray.add(this.x-a.x);
+		}
+		
+		return retArray;
 	}
 
 	private void dontDragMe() {
